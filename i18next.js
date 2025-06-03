@@ -1,8 +1,9 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.i18next = factory());
-})(this, (function () { 'use strict';
+    typeof define === 'function' && define.amd ? define(factory) :
+      (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.i18next = factory());
+})(this, (function () {
+  'use strict';
 
   const isString = obj => typeof obj === 'string';
   const defer = () => {
@@ -882,7 +883,7 @@
         let formattedCode;
         try {
           formattedCode = Intl.getCanonicalLocales(code)[0];
-        } catch (e) {}
+        } catch (e) { }
         if (formattedCode && this.options.lowerCaseLng) {
           formattedCode = formattedCode.toLowerCase();
         }
@@ -903,6 +904,7 @@
     getBestMatchFromCodes(codes) {
       if (!codes) return null;
       let found;
+      codes = Array.from(codes);
       codes.forEach(code => {
         if (found) return;
         const cleanedLng = this.formatLanguageCode(code);
@@ -1416,7 +1418,7 @@
           const name = `${lng}|${ns}`;
           if (!options.reload && this.store.hasResourceBundle(lng, ns)) {
             this.state[name] = 2;
-          } else if (this.state[name] < 0) ; else if (this.state[name] === 1) {
+          } else if (this.state[name] < 0); else if (this.state[name] === 1) {
             if (pending[name] === undefined) pending[name] = true;
           } else {
             this.state[name] = 1;
@@ -1560,7 +1562,7 @@
         this.loaded(name, err, data);
       });
     }
-    saveMissing(languages, namespace, key, fallbackValue, isUpdate, options = {}, clb = () => {}) {
+    saveMissing(languages, namespace, key, fallbackValue, isUpdate, options = {}, clb = () => { }) {
       if (this.services?.utils?.hasLoadedNamespace && !this.services?.utils?.hasLoadedNamespace(namespace)) {
         this.logger.warn(`did not save key "${key}" as the namespace "${namespace}" was not yet loaded`, 'This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!');
         return;
@@ -1669,7 +1671,7 @@
     return options;
   };
 
-  const noop = () => {};
+  const noop = () => { };
   const bindMemberFunctions = inst => {
     const mems = Object.getOwnPropertyNames(Object.getPrototypeOf(inst));
     mems.forEach(mem => {
